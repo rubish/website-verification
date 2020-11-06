@@ -43,3 +43,18 @@ npm run test
 ```
 npm run dev
 ```
+
+## Docker
+
+```
+docker build -t nodejs . 
+docker run -p 5000:5000 -d nodejs 
+```
+
+## Docker Hub Image
+
+```
+docker pull jayvirrathi/nodejs-basic:v1 
+
+docker run -p 5000:5000 -d jayvirrathi/nodejs-basic:v1 
+```
