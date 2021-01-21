@@ -1,19 +1,20 @@
 import logger from '../common/logger.js';
-import BaseEvent from './BaseEvent.js';
+import BaseEvent from './core/BaseEvent.js';
+import CrawlCreatedBg from './CrawlCreatedBg.js';
+import emit from './core/emitter.js';
 
 import { STATUS_CRAWLING } from '../models/websititeVerificationSchema.js';
-import { WebsiteVerificationEntity, CrawlUrlEntity } from '../models/index.js';
+import { WebsiteVerificationEntity } from '../models/index.js';
 
 class CrawlCreated extends BaseEvent {
   constructor(entity) {
     super();
-
     this.crawl = entity;
   }
 
   async process() {
     await this.updateWebsiteStatus();
-    await this.createSeedUrlCrawling();
+    emit(new CrawlCreatedBg(this.crawl));
   }
 
   async updateWebsiteStatus() {
@@ -25,14 +26,7 @@ class CrawlCreated extends BaseEvent {
 
     logger.info({ message: 'Website status updated', id: website.id });
   }
-
-  async createSeedUrlCrawling() {
-    const { _id: crawl, seedUrl: url } = this.crawl;
-    const crawlUrl = new CrawlUrlEntity({ crawl, url });
-    await crawlUrl.save();
-
-    logger.info({ message: 'Crawl url created', crawlUrl });
-  }
 }
 
+CrawlCreated.register();
 export default CrawlCreated;

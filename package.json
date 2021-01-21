@@ -4,8 +4,10 @@
   "description": " A basic starter for an express.js API",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "server": "node src/index.js",
+    "server:dev": "nodemon src/index.js",
+    "worker": "node src/worker.js",
+    "worker:dev": "nodemon src/worker.js",
     "lint": "eslint --fix src",
     "test": "mocha --exit"
   },
@@ -19,6 +21,7 @@
   "dependencies": {
     "@hapi/boom": "^9.1.1",
     "bull": "^3.20.0",
+    "bull-board": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -28,6 +31,7 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.11.13",
     "morgan": "^1.10.0",
+    "pubsub-js": "^1.9.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import CreateCrawlFromWebsiteRequest from '../commands/CreateCrawlFromWebsiteRequest.js';
-import BaseEvent from './BaseEvent.js';
+import BaseEvent from './core/BaseEvent.js';
 
 class WebsiteVerificationRequestCreated extends BaseEvent {
   constructor(entity) {
@@ -13,4 +13,5 @@ class WebsiteVerificationRequestCreated extends BaseEvent {
   }
 }
 
+WebsiteVerificationRequestCreated.register();
 export default WebsiteVerificationRequestCreated;

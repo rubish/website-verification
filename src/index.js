@@ -1,3 +1,5 @@
+import _ from './common/preInitSetup.js';
+
 import app from './app.js';
 
 const port = process.env.PORT || 5000;

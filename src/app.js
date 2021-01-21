@@ -3,11 +3,10 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import _ from './common/preInitSetup.js';
-
 import logger from './common/logger.js';
 import middlewares from './middlewares.js';
 import api from './api/index.js';
+import bullRouter from './api/bullRouter.js';
 
 const app = express();
 
@@ -23,6 +22,7 @@ app.get('/', (req, res) => {
   });
 });
 
+app.use('/admin/q', bullRouter);
 app.use('/api/v1', api);
 
 app.use(middlewares.notFound);
