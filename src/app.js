@@ -7,6 +7,8 @@ import logger from './common/logger.js';
 import middlewares from './middlewares.js';
 import api from './api/index.js';
 
+import _ from './common/preInitSetup.js';
+
 const app = express();
 
 app.use(morgan('dev', { stream: logger.stream.write }));

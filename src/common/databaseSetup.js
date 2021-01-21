@@ -1,8 +1,10 @@
-import { connect } from 'mongoose';
+import mongoose from 'mongoose';
 
-import { mongodbURL } from './appConfig';
+import appConfig from './appConfig.js';
 
-connect(mongodbURL, {
+mongoose.connect(appConfig.mongodbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+export default { _: true };

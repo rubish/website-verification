@@ -1,18 +1,28 @@
+import boom from '@hapi/boom';
+import Joi from 'joi';
+
+import logger from './common/logger.js';
+
 function notFound(req, res, next) {
   res.status(404);
   const error = new Error(`🔍 - Not Found - ${req.originalUrl}`);
   next(error);
 }
 
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
-  /* eslint-enable no-unused-vars */
-  const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack,
-  });
+  let error = err;
+
+  if (Joi.isError(err)) {
+    error = boom.badRequest(err);
+  } else if (!boom.isBoom(err)) {
+    error = boom.boomify(err);
+  }
+
+  const statusCode =
+    res.statusCode !== 200 ? res.statusCode : error.output.statusCode;
+  res.status(statusCode).json(error.output.payload);
+  logger.error(error);
 }
 
 export default {

@@ -1,15 +1,15 @@
 import { Router } from 'express';
 
-import emojis from './emojis.js';
+import websiteVerification from './websiteVerificationAPI.js';
 
 const router = Router();
 
 router.get('/', (req, res) => {
   res.json({
-    message: 'API - 👋🌎🌍🌏',
+    version: 'v1',
   });
 });
 
-router.use('/emojis', emojis);
+router.use('/website-verification', websiteVerification);
 
 export default router;
