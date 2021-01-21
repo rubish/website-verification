@@ -21,6 +21,10 @@ class BaseEvent {
     }
     throw new Error(`No such event ${name}`);
   }
+
+  async trigger() {
+    await this.process();
+  }
 }
 
 export default BaseEvent;

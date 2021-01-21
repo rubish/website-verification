@@ -1,5 +1,4 @@
 import CrawlCreated from '../events/CrawlCreated.js';
-import emit from '../events/core/emitter.js';
 
 import { CrawlEntity } from '../models/index.js';
 
@@ -20,7 +19,7 @@ class CreateCrawlFromWebsiteRequest {
       crawl,
     });
 
-    await emit(new CrawlCreated(crawl));
+    await new CrawlCreated(crawl).trigger();
     return crawl;
   }
 }

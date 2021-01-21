@@ -42,6 +42,10 @@ class BackgroundEvent extends BaseEvent {
     queueManager.produceJob(queueParams);
     return queueParams;
   }
+
+  async trigger() {
+    await this.enqueue();
+  }
 }
 
 export default BackgroundEvent;

@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import { WebsiteVerificationEntity } from '../models/index.js';
 import WebsiteVerificationRequestCreated from '../events/WebsiteVerificationRequestCreated.js';
-import emit from '../events/core/emitter.js';
 
 import logger from '../common/logger.js';
 
@@ -42,7 +41,7 @@ class CreateWebsiteVerificationRequest {
       verificationRequest,
     });
 
-    await emit(new WebsiteVerificationRequestCreated(verificationRequest));
+    await new WebsiteVerificationRequestCreated(verificationRequest).trigger();
 
     return verificationRequest;
   }

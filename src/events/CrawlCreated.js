@@ -1,7 +1,6 @@
 import logger from '../common/logger.js';
 import BaseEvent from './core/BaseEvent.js';
 import CrawlCreatedBg from './CrawlCreatedBg.js';
-import emit from './core/emitter.js';
 
 import { STATUS_CRAWLING } from '../models/websititeVerificationSchema.js';
 import { WebsiteVerificationEntity } from '../models/index.js';
@@ -14,7 +13,7 @@ class CrawlCreated extends BaseEvent {
 
   async process() {
     await this.updateWebsiteStatus();
-    emit(new CrawlCreatedBg(this.crawl));
+    new CrawlCreatedBg(this.crawl).trigger();
   }
 
   async updateWebsiteStatus() {
