@@ -2,9 +2,12 @@ import Joi from 'joi';
 import boom from '@hapi/boom';
 import _ from 'lodash';
 
-import WebsiteVerificationEntity from '../models/WebsititeVerificationEntity.js';
+import { WebsiteVerificationEntity } from '../models/index.js';
+import WebsiteVerificationRequestCreated from '../events/WebsiteVerificationRequestCreated.js';
 
-const noDuplicateIdRequest = async (value) => {
+import logger from '../common/logger.js';
+
+const noDuplicateRequestId = async (value) => {
   if (value) {
     const entity = await WebsiteVerificationEntity.findById(value).exec();
     if (entity) {
@@ -17,7 +20,7 @@ const noDuplicateIdRequest = async (value) => {
 
 const WebsiteVerificationRequest = Joi.object({
   url: Joi.string().uri().required(),
-  id: Joi.string().empty('').default(null).external(noDuplicateIdRequest),
+  id: Joi.string().empty('').default(null).external(noDuplicateRequestId),
 });
 
 class CreateWebsiteVerificationRequest {
@@ -32,6 +35,14 @@ class CreateWebsiteVerificationRequest {
 
     if (req.id) verificationRequest._id = req.id;
     await verificationRequest.save();
+
+    logger.info({
+      message: 'website verification request created',
+      verificationRequest,
+    });
+
+    new WebsiteVerificationRequestCreated(verificationRequest).process();
+
     return verificationRequest;
   }
 }

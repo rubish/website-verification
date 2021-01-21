@@ -11,6 +11,7 @@ function notFound(req, res, next) {
 
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
+  logger.error(err);
   let error = err;
 
   if (Joi.isError(err)) {
@@ -19,10 +20,7 @@ function errorHandler(err, req, res, next) {
     error = boom.boomify(err);
   }
 
-  const statusCode =
-    res.statusCode !== 200 ? res.statusCode : error.output.statusCode;
-  res.status(statusCode).json(error.output.payload);
-  logger.error(error);
+  res.status(error.output.statusCode).json(error.output.payload);
 }
 
 export default {

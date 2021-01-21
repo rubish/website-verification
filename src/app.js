@@ -3,11 +3,11 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
+import _ from './common/preInitSetup.js';
+
 import logger from './common/logger.js';
 import middlewares from './middlewares.js';
 import api from './api/index.js';
-
-import _ from './common/preInitSetup.js';
 
 const app = express();
 
