@@ -13,6 +13,7 @@ import { STATUS_COMPLETED, STATUS_FAILED } from '../models/crawlUrlSchema.js';
 
 // eslint-disable-next-line import/no-cycle
 import CreateCrawlUrl from './CreateCrawlUrl.js';
+import CrawlUrlCompleted from '../events/CrawlUrlCompleted.js';
 
 const rejectedResourceTypes = [
   'stylesheet',
@@ -43,6 +44,7 @@ class FetchAndProcessUrlContent {
     if (UrlUtility.isSameUrl(content.url, this.crawlUrl.url)) {
       this.crawlUrl.status = STATUS_COMPLETED;
       this.crawlUrl.extractedData.urls = urls;
+      this.crawlUrl.response.redirected = false;
       await this.crawlUrl.save();
     } else {
       if (UrlUtility.isSameOrSubWebsite(content.url, this.crawlUrl.url)) {
@@ -66,6 +68,8 @@ class FetchAndProcessUrlContent {
         depth: this.crawlUrl.depth,
       }).execute();
     }
+
+    await new CrawlUrlCompleted(this.crawlUrl).trigger();
   }
 
   async createCrawlUrls(urls) {

@@ -17,6 +17,16 @@ const websiteVerificationSchema = new mongoose.Schema(
       required: true,
       default: 'INIT',
     },
+    results: {
+      homePage: String,
+      isRedirecting: Boolean,
+      redirectAcceptable: Boolean,
+      privacyPage: String,
+      contactPage: String,
+      termsPage: String,
+      refundPolicyPage: String,
+      shippingPolicyPage: String,
+    },
   },
   {
     timestamps: true,

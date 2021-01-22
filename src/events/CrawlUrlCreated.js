@@ -2,6 +2,7 @@ import logger from '../common/logger.js';
 import BackgroundEvent from './core/BackgroundEvent.js';
 
 import { CrawlUrlEntity } from '../models/index.js';
+// eslint-disable-next-line import/no-cycle
 import FetchAndProcessUrlContent from '../commands/FetchAndProcessUrlContent.js';
 
 class CrawlUrlCreated extends BackgroundEvent {

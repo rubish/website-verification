@@ -19,7 +19,9 @@ class CreateCrawlUrl {
     const crawl = await CrawlEntity.findById(crawlId).exec();
     if (depth > crawl.maxDepth) return null;
 
-    const crawlUrlCount = await CrawlUrlEntity.count({ crawl: crawlId }).exec();
+    const crawlUrlCount = await CrawlUrlEntity.countDocuments({
+      crawl: crawlId,
+    }).exec();
     if (crawlUrlCount >= crawl.maxPages) return null;
 
     const existing = await CrawlUrlEntity.findOne({

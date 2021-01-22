@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import { WEBSITE_MODEL } from './constants.js';
 
 const STATUS_INIT = 'INIT';
-const STATUS_PROCESSING = 'PROCESSING';
 const STATUS_COMPLETED = 'COMPLETED';
 
 const crawlSchema = new mongoose.Schema(
@@ -27,7 +26,7 @@ const crawlSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: [STATUS_INIT, STATUS_PROCESSING, STATUS_COMPLETED],
+      enum: [STATUS_INIT, STATUS_COMPLETED],
       required: true,
       default: STATUS_INIT,
     },
@@ -38,4 +37,4 @@ const crawlSchema = new mongoose.Schema(
 );
 
 export default crawlSchema;
-export { STATUS_INIT, STATUS_PROCESSING, STATUS_COMPLETED };
+export { STATUS_INIT, STATUS_COMPLETED };
