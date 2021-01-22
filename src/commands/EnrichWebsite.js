@@ -72,7 +72,7 @@ class EnrichWebsite {
       });
     });
 
-    const bestUrl = urlScores
+    const bestUrl = Object.entries(urlScores)
       // eslint-disable-next-line no-unused-vars
       .filter(([_, score]) => score > 0)
       // eslint-disable-next-line no-unused-vars
