@@ -23,7 +23,7 @@ const CrawlEntity = mongoose.model(CRAWL_MODEL, crawlSchema, 'crawls');
 const CrawlUrlEntity = mongoose.model(
   CRAWL_URL_MODEL,
   crawlUrlSchema,
-  'crawls_urls'
+  'crawl_urls'
 );
 
 const CrawlUrlContentEntity = mongoose.model(

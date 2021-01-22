@@ -1,19 +1,17 @@
 import Joi from 'joi';
 import boom from '@hapi/boom';
-import _ from 'lodash';
 
 import { WebsiteVerificationEntity } from '../models/index.js';
 import WebsiteVerificationRequestCreated from '../events/WebsiteVerificationRequestCreated.js';
 
 import logger from '../common/logger.js';
+import UrlUtility from '../util/UrlUtility.js';
 
-const noDuplicateRequestId = async (value) => {
-  if (value) {
-    const entity = await WebsiteVerificationEntity.findById(value).exec();
+const noDuplicateRequestId = async (id) => {
+  if (id) {
+    const entity = await WebsiteVerificationEntity.findById(id).exec();
     if (entity) {
-      throw boom.forbidden(
-        `Verification request already exists for [id:${value}]`
-      );
+      throw boom.forbidden('Verification request already exists for id');
     }
   }
 };
@@ -31,7 +29,9 @@ class CreateWebsiteVerificationRequest {
   async execute() {
     const req = await WebsiteVerificationRequest.validateAsync(this.req);
 
-    const verificationRequest = new WebsiteVerificationEntity({ url: req.url });
+    const verificationRequest = new WebsiteVerificationEntity({
+      url: UrlUtility.normalize(req.url),
+    });
 
     if (req.id) verificationRequest._id = req.id;
     await verificationRequest.save();
@@ -43,7 +43,7 @@ class CreateWebsiteVerificationRequest {
 
     await new WebsiteVerificationRequestCreated(verificationRequest).trigger();
 
-    return verificationRequest;
+    return WebsiteVerificationEntity.findById(verificationRequest._id).exec();
   }
 }
 

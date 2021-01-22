@@ -1,6 +1,6 @@
 import WebsiteVerificationRequestCreated from './WebsiteVerificationRequestCreated.js';
-import CrawlCreatedBg from './CrawlCreatedBg.js';
 import CrawlCreated from './CrawlCreated.js';
+import CrawlUrlCreated from './CrawlUrlCreated.js';
 
-export { WebsiteVerificationRequestCreated, CrawlCreatedBg, CrawlCreated };
+export { WebsiteVerificationRequestCreated, CrawlCreated, CrawlUrlCreated };
 export default { _: true };

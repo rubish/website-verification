@@ -37,9 +37,14 @@ class BackgroundEvent extends BaseEvent {
     return { eventName, eventData };
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async queueOptions() {
+    return {};
+  }
+
   async enqueue() {
     const queueParams = await this.toQueueParams();
-    queueManager.produceJob(queueParams);
+    queueManager.produceJob(queueParams, this.queueOptions());
     return queueParams;
   }
 

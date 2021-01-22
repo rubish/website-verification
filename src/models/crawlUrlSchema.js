@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { CRAWL_MODEL } from './constants.js';
 
 const STATUS_INIT = 'INIT';
-const STATUS_PROCESSING = 'PROCESSING';
+const STATUS_FAILED = 'FAILED';
 const STATUS_COMPLETED = 'COMPLETED';
 
 const crawlUrlSchema = new mongoose.Schema(
@@ -19,9 +19,26 @@ const crawlUrlSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: [STATUS_INIT, STATUS_PROCESSING, STATUS_COMPLETED],
+      enum: [STATUS_INIT, STATUS_FAILED, STATUS_COMPLETED],
       required: true,
       default: STATUS_INIT,
+    },
+    depth: {
+      type: Number,
+      default: 0,
+    },
+    extractedData: {
+      urls: [
+        {
+          url: String,
+          text: String,
+        },
+      ],
+    },
+    response: {
+      redirected: Boolean,
+      redirectUrl: String,
+      failed: Boolean,
     },
   },
   {
@@ -30,4 +47,4 @@ const crawlUrlSchema = new mongoose.Schema(
 );
 
 export default crawlUrlSchema;
-export { STATUS_INIT, STATUS_PROCESSING, STATUS_COMPLETED };
+export { STATUS_INIT, STATUS_FAILED, STATUS_COMPLETED };

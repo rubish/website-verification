@@ -1,9 +1,9 @@
 import logger from '../common/logger.js';
 import BaseEvent from './core/BaseEvent.js';
-import CrawlCreatedBg from './CrawlCreatedBg.js';
 
 import { STATUS_CRAWLING } from '../models/websititeVerificationSchema.js';
 import { WebsiteVerificationEntity } from '../models/index.js';
+import CreateCrawlUrl from '../commands/CreateCrawlUrl.js';
 
 class CrawlCreated extends BaseEvent {
   constructor(entity) {
@@ -13,7 +13,11 @@ class CrawlCreated extends BaseEvent {
 
   async process() {
     await this.updateWebsiteStatus();
-    new CrawlCreatedBg(this.crawl).trigger();
+    new CreateCrawlUrl({
+      crawl: this.crawl._id,
+      url: this.crawl.seedUrl,
+      depth: 0,
+    }).execute();
   }
 
   async updateWebsiteStatus() {

@@ -1,8 +1,9 @@
 import Queue from 'bull';
 
+import appConfig from '../../common/appConfig.js';
 import logger from '../../common/logger.js';
 
-const eventQueue = new Queue('eventQueue');
+const eventQueue = new Queue('eventQueue', appConfig.redisUrl);
 
 eventQueue.on('error', (error) => {
   logger.error(error);
@@ -10,6 +11,7 @@ eventQueue.on('error', (error) => {
 
 eventQueue.on('completed', (job) => {
   const { eventName } = job.data;
+  job.remove();
   logger.info(`Job ${eventName}#${job.id} completed`);
 });
 
@@ -24,12 +26,12 @@ class EventQueueManager {
     this.queue = queue;
   }
 
-  async produceJob(data) {
-    this.queue.add(data);
+  async produceJob(data, options = {}) {
+    this.queue.add(data, options);
   }
 
-  async startConsuming(handler) {
-    this.queue.process(async (job) => {
+  async startConsuming(handler, concurrency = 1) {
+    this.queue.process(concurrency, async (job) => {
       await handler(job.data);
     });
   }

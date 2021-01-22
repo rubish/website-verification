@@ -1,30 +1,19 @@
-# Express API Starter
+# Website Verification Service
 
-Includes API Server utilities:
+Today Razorpay has enabled ~1.2 Million merchants to accept payments on their websites. And to do that we had to manually verify the merchant's website. Yes you read it right, it is all done Manually! So, our Platform team is brewing something to automate the merchant's website verification process during Merchant Onboarding to Razorpay.
 
-* [morgan](https://www.npmjs.com/package/morgan)
-  * HTTP request logger middleware for node.js
-* [helmet](https://www.npmjs.com/package/helmet)
-  * Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
-* [dotenv](https://www.npmjs.com/package/dotenv)
-  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`
+To establish if the Merchant’s business is legitimate, we have to scan the Merchant’ website and surface multiple details ranging from page availability to business category.
 
-Development utilities:
+This hack solves two of the tasks involved in website verification:
 
-* [nodemon](https://www.npmjs.com/package/nodemon)
-  * nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-* [eslint](https://www.npmjs.com/package/eslint)
-  * ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-* [mocha](https://www.npmjs.com/package/mocha)
-  * ☕️ Simple, flexible, fun JavaScript test framework for Node.js & The Browser ☕️
-* [supertest](https://www.npmjs.com/package/supertest)
-  * HTTP assertions made easy via superagent.
+1. Functional, Non-Redirecting Website
+2. Identify Pages of Interest
 
 ## Setup
 
-```
-npm install
-```
+- Install node (>15), mongodb and redis.
+- Copy `.env.sample` to `.env` and customize connections strings as per your setup
+- Execute `npm install` in project root
 
 ## Lint
 
@@ -32,29 +21,20 @@ npm install
 npm run lint
 ```
 
-## Test
-
-```
-npm run test
-```
-
 ## Development
 
-```
-npm run dev
-```
-
-## Docker
+Start server in one console and worker in another
 
 ```
-docker build -t nodejs . 
-docker run -p 5000:5000 -d nodejs 
+npm run server:dev
 ```
 
-## Docker Hub Image
+```
+npm run worker:dev
+```
+
+You would also need to start a headless browser to fetch the website pages.
 
 ```
-docker pull jayvirrathi/nodejs-basic:v1 
-
-docker run -p 5000:5000 -d jayvirrathi/nodejs-basic:v1 
+docker run -p 3000:3000 browserless/chrome
 ```

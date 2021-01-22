@@ -17,6 +17,14 @@ const crawlSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    maxDepth: {
+      type: Number,
+      default: 3,
+    },
+    maxPages: {
+      type: Number,
+      default: 200,
+    },
     status: {
       type: String,
       enum: [STATUS_INIT, STATUS_PROCESSING, STATUS_COMPLETED],
