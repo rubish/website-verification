@@ -1,9 +1,5 @@
 # Website Verification Service
 
-Today Razorpay has enabled ~1.2 Million merchants to accept payments on their websites. And to do that we had to manually verify the merchant's website. Yes you read it right, it is all done Manually! So, our Platform team is brewing something to automate the merchant's website verification process during Merchant Onboarding to Razorpay.
-
-To establish if the Merchant’s business is legitimate, we have to scan the Merchant’ website and surface multiple details ranging from page availability to business category.
-
 This hack solves two of the tasks involved in website verification:
 
 1. Functional, Non-Redirecting Website
