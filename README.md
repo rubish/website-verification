@@ -38,3 +38,5 @@ You would also need to start a headless browser to fetch the website pages.
 ```
 docker run -p 3000:3000 browserless/chrome
 ```
+
+Import `website-verification.postman_collection.json` in postman and try out the APIs.

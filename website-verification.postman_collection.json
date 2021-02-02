@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "90ac2a3b-9365-44be-9eb3-a1b9d7bcfc21",
+		"name": "website-verification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Website Verification Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\" : \"60096117c8c38cc59b597327\",\n    \"url\" : \"http://www.mculine.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/website-verification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"website-verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Website Verification Status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\" : \"60096117c8c38cc59b597327\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/website-verification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"website-verification"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
